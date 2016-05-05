@@ -3,10 +3,19 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
+  GraphQLNonNull,
 } from 'graphql';
 import fetch from 'node-fetch';
 
 const BASE_URL = 'http://local.naturebox.com/nb_api/rest';
+
+const NutritionFactsType = new GraphQLObjectType({
+  name: 'NutritionFactsType',
+
+  fields: (nt) => ({
+    vegan: { type: GraphQLString }
+  })
+})
 
 const ReviewType = new GraphQLObjectType({
   name: 'Review',
@@ -44,6 +53,10 @@ const ProductType = new GraphQLObjectType({
     },
     ingredients: { type: GraphQLString },
     name: { type: GraphQLString },
+    nutritionFacts: {
+      type: NutritionFactsType,
+      resolve: (product) => product.nutrition_facts
+    },
     reviews: {
       type: new GraphQLList(ReviewType),
       resolve: (product) =>
