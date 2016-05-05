@@ -97,9 +97,16 @@ const QueryType = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString }
       },
-      resolve: (root, args) =>
+      resolve: (root, args) => 
         fetch(`${BASE_URL}/products/${args.id}`)
           .then(res => res.json())
+    },
+    products: {
+      type: new GraphQLList(ProductType),
+      resolve: () =>
+        fetch(`${BASE_URL}/products`)
+        .then(res => res.json())
+        .then(json => Object.keys(json).map(key => json[key]))
     }
   })
 })
