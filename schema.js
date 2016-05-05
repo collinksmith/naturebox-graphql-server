@@ -8,6 +8,26 @@ import fetch from 'node-fetch';
 
 const BASE_URL = 'http://local.naturebox.com/nb_api/rest';
 
+const ReviewType = new GraphQLObjectType({
+  name: 'Review',
+  description: '...',
+
+  fields: () => ({
+    reviewId: { 
+      type: GraphQLString,
+      resolve: (review) => review.review_id,
+    },
+    productId: { 
+      type: GraphQLString,
+      resolve: (review) => review.prouct_id,
+    },
+    title: { type: GraphQLString },
+    detail: { type: GraphQLString },
+    nickname: { type: GraphQLString },
+    rating: { type: GraphQLString },
+  })
+})
+
 const ProductType = new GraphQLObjectType({
   name: 'Product',
   description: '...',
@@ -28,6 +48,12 @@ const ProductType = new GraphQLObjectType({
     sku: { type: GraphQLString },
     calories: { type: GraphQLString },
     name: { type: GraphQLString },
+    reviews: {
+      type: new GraphQLList(ReviewType),
+      resolve: (product) =>
+        fetch(`${BASE_URL}/products/${product.sku}/reviews`)
+          .then(res => res.json())
+    }
   })
 })
 
