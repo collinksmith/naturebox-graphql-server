@@ -33,27 +33,44 @@ const ProductType = new GraphQLObjectType({
   description: '...',
 
   fields: () => ({
+    attributeSetId: { 
+      type: GraphQLString,
+      resolve: (product) => product.attribute_set_id,
+    },
+    calories: { type: GraphQLString },
     entityId: { 
       type: GraphQLString,
       resolve: (product) => product.entity_id,
     },
-    squareImage: { 
-      type: GraphQLString,
-      resolve: (product) => product.square_image,
-    },
-    urlKey: { 
-      type: GraphQLString,
-      resolve: (product) => product.url_key,
-    },
-    sku: { type: GraphQLString },
-    calories: { type: GraphQLString },
+    ingredients: { type: GraphQLString },
     name: { type: GraphQLString },
     reviews: {
       type: new GraphQLList(ReviewType),
       resolve: (product) =>
         fetch(`${BASE_URL}/products/${product.sku}/reviews`)
           .then(res => res.json())
-    }
+    },
+    sku: { type: GraphQLString },
+    squareImage: { 
+      type: GraphQLString,
+      resolve: (product) => product.square_image,
+    },
+    tagLine: {
+      type: GraphQLString,
+      resolve: (product) => product.tag_line,
+    },
+    totalReviewsCount: {
+      type: GraphQLString,
+      resolve: (product) => product.total_reviews_count,
+    },
+    typeId: {
+      type: GraphQLString,
+      resolve: (product) => product.type_id,
+    },
+    urlKey: { 
+      type: GraphQLString,
+      resolve: (product) => product.url_key,
+    },
   })
 })
 
