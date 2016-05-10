@@ -23,5 +23,8 @@
     "node-fetch": "^1.5.1",
     "nodemon": "^1.9.2",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^2.9.0"
   }
 }
