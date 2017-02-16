@@ -21,11 +21,11 @@ const ReviewType = new GraphQLObjectType({
   description: '...',
 
   fields: () => ({
-    reviewId: { 
+    reviewId: {
       type: GraphQLString,
       resolve: (review) => review.review_id,
     },
-    productId: { 
+    productId: {
       type: GraphQLString,
       resolve: (review) => review.prouct_id,
     },
@@ -41,12 +41,12 @@ const ProductType = new GraphQLObjectType({
   description: '...',
 
   fields: () => ({
-    attributeSetId: { 
+    attributeSetId: {
       type: GraphQLString,
       resolve: (product) => product.attribute_set_id,
     },
     calories: { type: GraphQLString },
-    entityId: { 
+    entityId: {
       type: GraphQLString,
       resolve: (product) => product.entity_id,
     },
@@ -63,7 +63,7 @@ const ProductType = new GraphQLObjectType({
           .then(res => res.json())
     },
     sku: { type: GraphQLString },
-    squareImage: { 
+    squareImage: {
       type: GraphQLString,
       resolve: (product) => product.square_image,
     },
@@ -79,7 +79,7 @@ const ProductType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: (product) => product.type_id,
     },
-    urlKey: { 
+    urlKey: {
       type: GraphQLString,
       resolve: (product) => product.url_key,
     },
@@ -96,7 +96,7 @@ const QueryType = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString }
       },
-      resolve: (root, args) => 
+      resolve: (root, args) =>
         fetch(`${BASE_URL}/products/${args.id}`)
           .then(res => res.json())
     },
